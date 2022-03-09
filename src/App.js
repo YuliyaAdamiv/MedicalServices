@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import Home from './components/Home/Home';
 import Appointments from './components/Appointments/Appointments';
+import Staff from './components/Staff/Staff';
 
 import './App.scss';
 
@@ -11,6 +12,7 @@ class App extends Component {
       <div className="App">
         <Home />
         <Appointments />
+        <Staff />
       </div>
     );
   }
