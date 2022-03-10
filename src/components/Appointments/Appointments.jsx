@@ -3,18 +3,21 @@ import React, {Component} from 'react';
 import {Form} from 'reactstrap';
 import Moment from 'react-moment';
 import {map, filter} from 'underscore';
+import {Button} from 'reactstrap';
 
 import Table from '../Table/Table';
 import Header from '../Header/Header';
+import Loader from '../Loader/Loader';
 import TextField from '../Form/TextField/TextField';
 import DateField from '../Form/DateField/DateField';
 import CheckboxField from '../Form/CheckboxField/CheckboxField';
 
 import './Appointments.scss';
 
-import {ReactComponent as Appointment} from '../../images/appointment.svg';
+import service from '../services/AppointmentServices';
 
-import {appointments as data} from '../lib/MockData';
+import {ReactComponent as Appointment} from '../../images/appointment.svg';
+import {ReactComponent as Search} from '../../images/search.svg';
 
 const TITLE = 'Прийоми';
 
@@ -29,6 +32,9 @@ export default class Appointments extends Component {
       onlyMe: false,
     },
   };
+  componentDidMount() {
+    this.load();
+  }
 
   onChangeFilterField = (name, value) => {
     const {filter} = this.state;
@@ -45,9 +51,29 @@ export default class Appointments extends Component {
       filter: {...filter, ...{[name]: value && value.getTime()}},
     });
   };
+  onSearch = () => {
+    this.load();
+  };
+
+  load() {
+    this.setState({isLoading: true});
+
+    service.find({filter: this.state.filter}).then(({success, data}) => {
+      if (success) {
+        this.setState({
+          data,
+          isLoading: false,
+        });
+      }
+    });
+  }
 
   render() {
-    const {startDate, endDate, clientName, onlyMe} = this.state.filter;
+    const {
+      data,
+      isLoading,
+      filter: {startDate, endDate, clientName, onlyMe},
+    } = this.state;
 
     let filtered = filter(data, (o) => {
       return (
@@ -107,56 +133,68 @@ export default class Appointments extends Component {
                 className="Appointments-FilterField"
                 onChange={this.onChangeFilterField}
               />
+              <Button
+                className="Appointments-SearchBtn"
+                onClick={this.onSearch}
+              >
+                <Search className="Appointments-SearchBtnIcon" />
+              </Button>
             </Form>
           </div>
-          <Table
-            data={filtered}
-            className="AppointmentList"
-            columns={[
-              {
-                dataField: 'date',
-                text: 'Дата',
-                headerStyle: {
-                  width: '150px',
+          {isLoading ? (
+            <Loader />
+          ) : data ? (
+            <Table
+              data={data}
+              className="AppointmentList"
+              columns={[
+                {
+                  dataField: 'date',
+                  text: 'Дата',
+                  headerStyle: {
+                    width: '150px',
+                  },
+                  formatter: (v, row) => {
+                    return <Moment date={v} format="DD.MM.YYYY HH.mm" />;
+                  },
                 },
-                formatter: (v, row) => {
-                  return <Moment date={v} format="DD.MM.YYYY HH.mm" />;
+                {
+                  dataField: 'clientName',
+                  text: 'Клієнт',
+                  headerStyle: {
+                    width: '300px',
+                  },
                 },
-              },
-              {
-                dataField: 'clientName',
-                text: 'Клієнт',
-                headerStyle: {
-                  width: '300px',
+                {
+                  dataField: 'status',
+                  text: 'Статус',
                 },
-              },
-              {
-                dataField: 'status',
-                text: 'Статус',
-              },
-              {
-                dataField: 'holderName',
-                text: 'Приймаючий',
-                headerStyle: {
-                  width: '300px',
+                {
+                  dataField: 'holderName',
+                  text: 'Приймаючий',
+                  headerStyle: {
+                    width: '300px',
+                  },
                 },
-              },
-              {
-                dataField: 'compliences',
-                text: 'Скарги',
-                headerStyle: {
-                  width: '200px',
+                {
+                  dataField: 'compliences',
+                  text: 'Скарги',
+                  headerStyle: {
+                    width: '200px',
+                  },
                 },
-              },
-              {
-                dataField: 'diagnosis',
-                text: 'Діагноз',
-                headerStyle: {
-                  width: '200px',
+                {
+                  dataField: 'diagnosis',
+                  text: 'Діагноз',
+                  headerStyle: {
+                    width: '200px',
+                  },
                 },
-              },
-            ]}
-          />
+              ]}
+            />
+          ) : (
+            'Немає данних'
+          )}
         </div>
       </div>
     );

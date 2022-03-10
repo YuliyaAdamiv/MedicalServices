@@ -1,3 +1,7 @@
+import {filter} from 'underscore';
+
+const USER = 'Адамів Юлія Олегівна';
+
 export const appointments = [
   {
     date: 1556863200000,
@@ -32,3 +36,20 @@ export const appointments = [
     diagnosis: 'Ротавірус',
   },
 ];
+
+export function getAppointments(params) {
+  const {startDate, endDate, clientName, onlyMe} = params;
+
+  return filter(appointments, (o) => {
+    return (
+      (startDate ? o.date >= startDate : true) &&
+      (endDate ? o.date <= endDate : true) &&
+      (clientName
+        ? clientName.length > 2
+          ? o.clientName.includes(clientName)
+          : true
+        : true) &&
+      (onlyMe ? o.holderName === USER : true)
+    );
+  });
+}
