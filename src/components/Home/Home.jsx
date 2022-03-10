@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 
 import {map} from 'underscore';
+import {Link} from 'react-router-dom';
 
 import './Home.scss';
 
@@ -24,7 +25,7 @@ const SECTIONS = [
   {title: 'Сповіщення', href: '/notifications', Icon: Broadcast},
   {title: 'Повідомлення', href: '/messages', Icon: Messages},
   {title: 'Пацієнти', href: '/clients', Icon: Clients},
-  {title: 'Співробітники', href: '/employees', Icon: Employees},
+  {title: 'Співробітники', href: '/staff', Icon: Employees},
 ];
 
 export default class Home extends Component {
@@ -41,10 +42,10 @@ export default class Home extends Component {
           <div className="SectionNavigation">
             {' '}
             {map(SECTIONS, ({title, href, Icon}) => (
-              <a className="SectionNavigation-Item Section" href="#">
+              <Link className="SectionNavigation-Item Section" to={href}>
                 <Icon className="Section-Icon" />
                 <span className="Section-Title"> {title} </span>{' '}
-              </a>
+              </Link>
             ))}{' '}
           </div>{' '}
         </div>{' '}
