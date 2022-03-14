@@ -25,6 +25,9 @@ const USER = 'Адамів Юлія Олегіна';
 
 export default class Appointments extends Component {
   state = {
+    data: null,
+    isLoading: false,
+
     filter: {
       startDate: null,
       endDate: null,
@@ -32,6 +35,7 @@ export default class Appointments extends Component {
       onlyMe: false,
     },
   };
+
   componentDidMount() {
     this.load();
   }

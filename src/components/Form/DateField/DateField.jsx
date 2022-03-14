@@ -7,7 +7,7 @@ import {FormGroup, Label} from 'reactstrap';
 
 import './DateField.scss';
 
-export default class DateField extends Component {
+export default class DatePickerField extends Component {
   static propTypes = {
     name: PropTypes.string,
     label: PropTypes.string,

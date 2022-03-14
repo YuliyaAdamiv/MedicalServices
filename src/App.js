@@ -1,6 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {
+    Route, 
+    Switch,
+    Redirect,
+    withRouter
+  } from "react-router-dom"
 
 import Home from './components/Home/Home';
 import Appointments from './components/Appointments/Appointments';
@@ -13,18 +18,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/appointments" element={<Appointments />} />
-            <Route path="/staff" element={<Staff />} />
-            <Route path="/clients" element={<Clients />} />
-          </Routes>{' '}
-        </BrowserRouter>{' '}
+        <Switch>
+            <Route path="/home" component={Home } />
+            <Route path="/appointments" component={Appointments } />
+            <Route path="/staff" component={Staff } />
+            <Route path="/clients" component={Clients } />
+            <Redirect from='/' to='/home'/>
+          </Switch>{' '}
+      {' '}
       </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
