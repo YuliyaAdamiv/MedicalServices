@@ -14,6 +14,8 @@ import './App.scss';
 
 import Home from './containers/Home/Home'
 import Appointments from './containers/Appointments/Appointments'
+import Staffs from './containers/Staff/Staffs'
+import Clients from './containers/Clients/Clients'
 
 class App extends Component {
   render() {
@@ -25,6 +27,8 @@ class App extends Component {
           <Switch>
             <Route path='/home' component={Home} />
             <Route path='/appointments' component={Appointments} />
+            <Route path='/employees' component={Staffs} />
+            <Route path='/clients' component={Clients} />
             <Redirect from='/' to='/home'/>
           </Switch>
         </div>
