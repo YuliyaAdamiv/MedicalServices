@@ -20,6 +20,7 @@ import Header from '../Header/Header'
 import LoadAppointmentStatusesAction from '../../actions/directory/LoadAppointmentStatusesAction'
 
 import * as appointmentListActions from '../../redux/appointment/list/appointmentListActions'
+import { cleanFilter } from '../../redux/appointment/list/appointmentListActions'
 
 import { ReactComponent as Search } from '../../images/search.svg'
 import { ReactComponent as Appointment } from '../../images/appointment.svg'
@@ -30,6 +31,7 @@ const USER = 'Иванов Иван Иванович'
 
 // маппинг состояния приложения в свойства компонента-контейнера
 function mapStateToProps (state) {
+ 
     return {
         error: state.appointment.list.error,
         isFetching: state.appointment.list.isFetching,
@@ -66,6 +68,8 @@ class Appointments extends Component {
   onSearch = () => {
     this.load()
   }
+  
+  
 
   get actions () {
     return this.props.actions
@@ -161,6 +165,10 @@ class Appointments extends Component {
                 className='Appointments-SearchBtn'
                 onClick={this.onSearch}>
                 <Search className='Appointments-SearchBtnIcon'/>
+              </Button>
+              <Button
+              className='Appointments-SearchBtn'
+              onClick={this.cleanFilter}>Clean
               </Button>
             </Form>
           </div>
