@@ -5,13 +5,11 @@ import {bindActionCreators} from 'redux'
 
 import Moment from 'react-moment'
 import { map, filter } from 'underscore'
-import { Form, Button } from 'reactstrap'
+import { Button, Collapse } from 'reactstrap'
 
+import AppointmentFilter from '../Appointments/AppointmentFilter'
 import Table from '../../components/Table/Table'
-import TextField from '../../components/Form/TextField/TextField'
-import DateField from '../../components/Form/DateField/DateField'
-import SelectField from '../../components/Form/SelectField/SelectField'
-import CheckboxField from '../../components/Form/CheckboxField/CheckboxField'
+
 
 import './Appointments.scss'
 
@@ -20,9 +18,7 @@ import Header from '../Header/Header'
 import LoadAppointmentStatusesAction from '../../actions/directory/LoadAppointmentStatusesAction'
 
 import * as appointmentListActions from '../../redux/appointment/list/appointmentListActions'
-import { cleanFilter } from '../../redux/appointment/list/appointmentListActions'
 
-import { ReactComponent as Search } from '../../images/search.svg'
 import { ReactComponent as Appointment } from '../../images/appointment.svg'
 
 const TITLE = 'Приёмы'
@@ -52,34 +48,17 @@ function mapDispatchToProps(dispatch) {
 }
 
 class Appointments extends Component {
-
-  componentDidMount() {
-    this.load()
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = { collapse: false };
   }
 
-  onChangeFilterField = (name, value) => {
-    this.actions.changeFilterField(name, value)
+  toggle() {
+    this.setState({ collapse: !this.state.collapse });
   }
 
-  onChangeFilterDateField = (name, value) => {
-    this.actions.changeFilterField(name, value && value.getTime())
-  }
-
-  onSearch = () => {
-    this.load()
-  }
   
-  
-
-  get actions () {
-    return this.props.actions
-  }
-
-  load() {
-    this.actions.load({
-        ...this.props.dataSource.filter.toJS()
-    })
-  }
 
   render() {
 
@@ -90,13 +69,6 @@ class Appointments extends Component {
       directory
     } = this.props
 
-    const {  
-      startDate,
-      endDate,
-      clientName,
-      statusId,
-      onlyMe
-    } = ds.filter
 
     return (
       <div className='Appointments'>
@@ -112,65 +84,10 @@ class Appointments extends Component {
         <div className='Appointments-Body'>
           <div className='Appointments-Filter'>
             <LoadAppointmentStatusesAction/>
-            <Form className='Appointments-FilterForm'>
-              <DateField
-                hasTime
-                name='startDate'
-                value={startDate}
-                dateFormat='dd/MM/yyyy HH:mm'
-                timeFormat='HH:mm'
-                placeholder='С'
-                className='Appointments-FilterField'
-                onChange={this.onChangeFilterDateField}
-              />
-              <DateField
-                hasTime
-                name='endDate'
-                value={endDate}
-                dateFormat='dd/MM/yyyy HH:mm'
-                timeFormat='HH:mm'
-                placeholder='По'
-                className='Appointments-FilterField'
-                onChange={this.onChangeFilterDateField}
-              />
-              <TextField
-                name='clientName'
-                value={clientName}
-                placeholder='Клиент'
-                className='Appointments-FilterField'
-                onChange={this.onChangeFilterField}
-              />
-              <SelectField
-                name='statusId'
-                value={statusId}
-                placeholder='Статус'
-                options={[
-                  { value: -1, text: '' },
-                  ...map(
-                    directory.appointment.status.list.dataSource.data, 
-                    o => ({ value: o.id, text: o.title })
-                  )
-                ]}
-                className='Appointments-FilterField'
-                onChange={this.onChangeFilterField}
-              />
-              <CheckboxField
-                name='onlyMe'
-                label='Только я'
-                value={onlyMe}
-                className='Appointments-FilterField'
-                onChange={this.onChangeFilterField}
-              />
-              <Button
-                className='Appointments-SearchBtn'
-                onClick={this.onSearch}>
-                <Search className='Appointments-SearchBtnIcon'/>
-              </Button>
-              <Button
-              className='Appointments-SearchBtn'
-              onClick={this.cleanFilter}>Clean
-              </Button>
-            </Form>
+            <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Collapse</Button>
+        <Collapse isOpen={this.state.collapse}>
+        <AppointmentFilter />
+            </Collapse>
           </div>
           <Table
               data={ds.data}
