@@ -13,6 +13,10 @@ export default Record({
             clientName: '',
             onlyMe: false
         })(),
+        sorting: Record({
+            field: 'firstName',
+            order: 'asc'
+        })(),
         // пагинация
         pagination: Record({
             page: 1, // текущий номер страницы

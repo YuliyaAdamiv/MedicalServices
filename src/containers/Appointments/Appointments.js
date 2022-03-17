@@ -59,7 +59,11 @@ class Appointments extends Component {
   }
 
   
-
+  load() {
+    this.actions.load({
+        ...this.props.dataSource.filter.toJS()
+    })
+  }
   render() {
 
     // берём данные из состояния приложения используя свойства props
@@ -97,6 +101,10 @@ class Appointments extends Component {
                 {
                   dataField: 'date',
                   text: 'Дата',
+                  sort: true,
+  onSort: (field, order) => {
+   
+  },
                   headerStyle: {
                     width: '150px'
                   },
@@ -109,17 +117,29 @@ class Appointments extends Component {
                 {
                   dataField: 'clientName',
                   text: 'Клиент',
+                  sort: true,
+  onSort: (field, order) => {
+   
+  },
                   headerStyle: {
                     width: '300px'
                   }
                 },
                 {
                   dataField: 'status',
-                  text: 'Статус'
+                  text: 'Статус',
+                  sort: true,
+  onSort: (field, order) => {
+    
+  },
                 },
                 {
                   dataField: 'holderName',
                   text: 'Принимающий',
+                  sort: true,
+  onSort: (field, order) => {
+    
+  },
                   headerStyle: {
                     width: '300px'
                   }

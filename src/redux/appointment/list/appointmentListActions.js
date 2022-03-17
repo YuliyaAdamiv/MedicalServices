@@ -10,6 +10,7 @@ const {
     CLEAN_APPOINTMENT_LIST_FILTER,
     CHANGE_APPOINTMENT_LIST_FILTER,
     CHANGE_APPOINTMENT_LIST_FILTER_FIELD,
+    CHANGE_ASSESSMENT_LIST_SORTING,
 
     LOAD_APPOINTMENT_LIST_REQUEST,
     LOAD_APPOINTMENT_LIST_SUCCESS,
@@ -46,6 +47,13 @@ export function changeFilterField (name, value, shouldReload) {
         payload: { name, value, shouldReload }
     }
 }
+export function sort (field, order, shouldReload) {
+    return {
+        type: CHANGE_ASSESSMENT_LIST_SORTING,
+        payload: { field, order, shouldReload }
+    }
+ }
+ 
 
 // загрузить данные для списка с сервера
 export function load (params) {
