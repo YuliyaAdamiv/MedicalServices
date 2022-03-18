@@ -10,7 +10,8 @@ import { Button, Collapse } from 'reactstrap'
 import AppointmentFilter from '../Appointments/AppointmentFilter'
 import Table from '../../components/Table/Table'
 
-
+import Pagination from "../../components/com";
+import "../../components/app.scss";
 import './Appointments.scss'
 
 import Header from '../Header/Header'
@@ -64,6 +65,14 @@ class Appointments extends Component {
         ...this.props.dataSource.filter.toJS()
     })
   }
+  state = {
+    currentPage: 1
+  };
+  changeCurrentPage = numPage => {
+    this.setState({ currentPage: numPage });
+    //fetch a data
+    //or update a query to get data
+  };
   render() {
 
     // берём данные из состояния приложения используя свойства props
@@ -160,6 +169,16 @@ class Appointments extends Component {
                 }
               ]}
             />
+            <div>
+            <div className="container">
+          <Pagination
+            currentPage={this.state.currentPage}
+            totalPages={10}
+            changeCurrentPage={this.changeCurrentPage}
+            theme="square-i"
+          />
+          </div>
+      </div>
         </div>
       </div>
     )

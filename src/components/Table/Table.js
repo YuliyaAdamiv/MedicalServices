@@ -95,6 +95,7 @@ export default class Table extends Component {
           bordered={hasBorders}
           rowStyle={this.getRowStyle}
           noDataIndication={isLoading ? renderLoadingIndication : noDataText}
+          onTableChange={this.onRefresh}
         />
       </div>
     )
