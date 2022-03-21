@@ -9,6 +9,7 @@ import { Button, Collapse } from 'reactstrap'
 
 import AppointmentFilter from '../Appointments/AppointmentFilter'
 import Table from '../../components/Table/Table'
+import ModalWindows from '../../components/ModalWindow/ModalWindows'
 
 import Pagination from "../../components/com";
 import "../../components/app.scss";
@@ -178,6 +179,7 @@ class Appointments extends Component {
             theme="square-i"
           />
           </div>
+          <ModalWindows buttonLabel='Modal window' text='window' className='ErrorDialog-OkBtn' children='Error Error Error Error Error Error Error Error Error Error Error Error Error Error Error Error' title='Message error' icon='Danger'/>
       </div>
         </div>
       </div>
