@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
 import cn from 'classnames'
+import {Link} from 'react-router-dom'
+
 
 import {connect} from 'react-redux'
 
@@ -36,8 +38,9 @@ class Header extends Component {
                 {userName}
               </div>
             )}
+              <Link className='Header-UserLogin' to='/login'>LogIn</Link>
             <a className='btn btn-primary Header-ExitBtn'>
-              Выйти
+            Go out
             </a>
           </div>
         </div>        

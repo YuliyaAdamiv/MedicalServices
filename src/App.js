@@ -16,6 +16,9 @@ import Home from './containers/Home/Home'
 import Appointments from './containers/Appointments/Appointments'
 import Staffs from './containers/Staff/Staffs'
 import Clients from './containers/Clients/Clients'
+import Login from './components/Auth/Login'
+import Admin from './components/Auth/Admin'
+import Logout from './components/Auth/Logout'
 
 class App extends Component {
   render() {
@@ -29,6 +32,9 @@ class App extends Component {
             <Route path='/appointments' component={Appointments} />
             <Route path='/employees' component={Staffs} />
             <Route path='/clients' component={Clients} />
+            <Route path='/login' component={Login} />
+            <Route path='/admin' component={Admin} />
+            <Route path='/logout' component={Logout} />
             <Redirect from='/' to='/home'/>
           </Switch>
         </div>

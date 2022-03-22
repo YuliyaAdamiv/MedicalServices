@@ -31,9 +31,16 @@
 
 .Header-UserName {
   font-size: 14px;
-  margin-right: 20px;
+  color:yellow;
+  
 }
 
 .Header-ExitBtn {
   border: 1px solid white;
+}
+.Header-UserLogin{
+  color: blue;
+  text-decoration: none;
+  margin: 0 10px;
+  
 }
