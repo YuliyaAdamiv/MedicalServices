@@ -1,0 +1,26 @@
+.contactform{
+    margin: 20px;
+    
+  }
+  
+  input{
+    margin-bottom: 5px;
+    height: 20px;
+    border: 1px solid #d8d8d8;
+    padding: 20px;
+  }
+  .primary{
+      color: #007bff;
+  }
+  
+  button{
+    padding: 10px;
+    border: 1px solid #d8d8d8;
+    border-radius: 3px;
+  }
+  
+  .error{
+    margin-left: 5px;
+    font-size: 13px;
+    color: red;
+  }
