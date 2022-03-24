@@ -61,6 +61,8 @@ class Appointments extends Component {
   }
 
   
+
+  
   load() {
     this.actions.load({
         ...this.props.dataSource.filter.toJS()
@@ -99,10 +101,14 @@ class Appointments extends Component {
           <div className='Appointments-Filter'>
             <LoadAppointmentStatusesAction/>
             <Button color="primary" onClick={this.toggle} style={{ marginBottom: '1rem' }}>Collapse</Button>
+            <Button color="primary"  style={{ marginBottom: '1rem' }}>Edit fields</Button>
+            <Button color="primary"   onClick ={(e) => {e.preventDefault();window.location.href='http://localhost:3001/create'; }}style={{ marginBottom: '1rem' }}>Create</Button>
         <Collapse isOpen={this.state.collapse}>
+          
         <AppointmentFilter />
             </Collapse>
           </div>
+         
           <Table
               data={ds.data}
               isLoading={isFetching}

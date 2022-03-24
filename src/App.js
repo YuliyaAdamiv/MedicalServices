@@ -19,6 +19,7 @@ import Clients from './containers/Clients/Clients'
 import Login from './components/Auth/Login'
 import Admin from './components/Auth/Admin'
 import Logout from './components/Auth/Logout'
+import Create from './components/Create/Create'
 
 
 class App extends Component {
@@ -36,6 +37,7 @@ class App extends Component {
             <Route path='/login' component={Login} />
             <Route path='/admin' component={Admin} />
             <Route path='/logout' component={Logout} />
+            <Route path='/create' component={Create} />
             <Redirect from='/' to='/home'/>
           </Switch>
         </div>
